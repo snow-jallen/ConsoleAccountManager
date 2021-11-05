@@ -37,7 +37,7 @@ namespace AccountManager
         {
             foreach(var account in accounts)
             {
-                Console.WriteLine("{0} {1} {2}", account.Id, ShortenString(account.Name, 15), ShortenString(account.Email, 10));
+                Console.WriteLine("{0,3:000} {1,-15} {2}", account.Id, ShortenString(account.Name, 15), ShortenString(account.Email, 18));
             }
         }
 
