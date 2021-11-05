@@ -16,5 +16,21 @@ namespace AccountManager.Tests
             var expected = "0123...";
             Assert.AreEqual(expected, actual);
         }
+
+        [Test]
+        public void ShortenTo1Chars()
+        {
+            var actual = Program.ShortenString("0123456789", 1);
+            var expected = "0";
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void ShortenToNegativeChars()
+        {
+            var actual = Program.ShortenString("0123456789", -1);
+            var expected = "";
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

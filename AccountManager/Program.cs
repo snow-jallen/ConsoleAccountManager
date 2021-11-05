@@ -10,10 +10,6 @@ namespace AccountManager
         static List<Account> accounts;
         static void Main(string[] args)
         {
-            if(args.Length > 0 && args[0] == "test")
-            {
-                Tests.RunTests();
-            }
             accounts = GetAccounts("accounts.txt");
             DisplayAccounts();
         }
