@@ -1,0 +1,4 @@
+1|Jonathan Allen|jallen@snow.edu
+2|Santa Clause|santa@northpole.gov
+3|Easter Bunny|sweets@toochache.net
+4|Chuck Norris|chuck@norris.com
