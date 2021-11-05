@@ -4,7 +4,7 @@ using System.IO;
 
 namespace AccountManager
 {
-    class Program
+    public class Program
     {
         record Account(int Id, string Name, string Email);
         static List<Account> accounts;
