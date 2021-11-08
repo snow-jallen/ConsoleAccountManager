@@ -2,4 +2,4 @@
 2/5/2021|24.56|Another Deposit
 3/1/2021|-12.00|Get some lunch
 3/15/2021|200|Payroll
-4/1/2021|-67.00|Birthday gift
+4/1/2021|-100000000000|Birthday gift
