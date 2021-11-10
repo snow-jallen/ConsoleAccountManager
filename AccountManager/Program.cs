@@ -6,29 +6,76 @@ namespace AccountManager
 {
     public class Program
     {
+        const string FileName = "accounts.txt";
         record Account(int Id, string Name, string Email);
         record Transaction(DateTime Date, Decimal Amount, string Description);
         static List<Account> accounts;
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
-            accounts = GetAccounts("accounts.txt");
-            DisplayAccounts();
-            var selectedAccount = readInt("select an account", 1, accounts.Count);
-            var activity = readActivity(selectedAccount);
-            displayActivity(activity);
+            accounts = GetAccounts(FileName);
+            while (true)
+            {
+                switch (readInt("Make a choice:\n0) Exit Program\n1) Display existing account\n2) Create new account", 0, 2))
+                {
+                    case 0:
+                        return 0;
+                    case 1:
+                        DisplayAccounts();
+                        var selectedAccount = readInt("select an account", 1, accounts.Count);
+                        var activity = readActivity(selectedAccount);
+                        displayActivity(activity);
+                        break;
+                    case 2:
+                        createNewAccount();
+                        break;
+                }
+            }
+        }
+
+        private static void createNewAccount()
+        {
+            var newId = accounts.Count + 1;
+            var newName = readString("Name on the account:", minLength: 3);
+            var newEmail = readString("Email address", minLength: 5, maxLength: 512);
+
+            File.AppendAllText(FileName, $"{newId}|{newName}|{newEmail}\n");
+            accounts.Add(new Account(newId, newName, newEmail));
+        }
+
+        private static string readString(string prompt, int minLength = 0, int maxLength = 26)
+        {
+            while (true)
+            {
+                Console.WriteLine(prompt);
+                var input = Console.ReadLine();
+                if (input.Length >= minLength && input.Length <= maxLength)
+                {
+                    return input;
+                }
+
+                Console.WriteLine($"Please enter something more than {minLength} and less than {maxLength} characters");
+            }
         }
 
         private static void displayActivity(List<Transaction> activity)
         {
-             foreach (var transaction in activity)
+            if (activity.Count == 0)
             {
-                Console.WriteLine("{0,10:d} {1,12:c} {2}", transaction.Date, transaction.Amount, transaction.Description);
+                Console.WriteLine("This account has no activity.");
+            }
+            else
+            {
+                foreach (var transaction in activity)
+                {
+                    Console.WriteLine("{0,10:d} {1,12:c} {2}", transaction.Date, transaction.Amount, transaction.Description);
+                }
             }
         }
 
         private static List<Transaction> readActivity(int selectedAccount)
         {
             var fileName = $"{selectedAccount}.txt";
+
             List<Transaction> transactions = new List<Transaction>();
             if (File.Exists(fileName))
             {
@@ -45,9 +92,8 @@ namespace AccountManager
             }
             else
             {
-                throw new Exception("unable to locate activity for account " + selectedAccount);
+                return new List<Transaction>();
             }
-
         }
 
         private static int readInt(string prompt, int min, int max)

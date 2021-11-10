@@ -2,3 +2,5 @@
 2|Santa Clause|santa@northpole.gov
 3|Easter Bunny|sweets@toochache.net
 4|Chuck Norris|chuck@norris.com
+5|Bugsy Malone|bugsy@malone.com
+6|Princess Buttercup|asyou@wish.com
